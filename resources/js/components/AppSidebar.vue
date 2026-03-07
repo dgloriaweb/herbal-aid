@@ -39,6 +39,18 @@ const mainNavItems = computed<NavItem[]>(() => {
             title: 'Manage',
             href: '/manage',
             icon: Settings,
+            items: [
+                {
+                    title: 'Setup',
+                    href: '/manage/setup',
+                    items: [
+                        {
+                            title: 'Languages',
+                            href: '/manage/setup/languages',
+                        },
+                    ],
+                },
+            ],
         });
     }
 
@@ -56,14 +68,9 @@ const mainNavItems = computed<NavItem[]>(() => {
 const footerNavItems: NavItem[] = [
     {
         title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
+        href: 'https://github.com/dgloriaweb/herbal-aid',
         icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
+    }
 ];
 </script>
 

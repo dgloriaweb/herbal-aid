@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class MenuItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'key',
+        'name',
+        'description',
+        'path',
+        'parent_id',
+        'order',
+    ];
+
+    public function parent()
+    {
+        return $this->belongsTo(MenuItem::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(MenuItem::class, 'parent_id')->orderBy('order');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'menu_item_role');
+    }
+}

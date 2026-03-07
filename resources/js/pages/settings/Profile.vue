@@ -30,6 +30,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
+const roles = computed(() => page.props.auth.roles);
 </script>
 
 <template>
@@ -78,6 +79,13 @@ const user = computed(() => page.props.auth.user);
                             placeholder="Email address"
                         />
                         <InputError class="mt-2" :message="errors.email" />
+                    </div>
+
+                    <div class="grid gap-2">
+                        <Label>Roles</Label>
+                        <p class="text-sm text-muted-foreground">
+                            {{ roles.length > 0 ? roles.join(', ') : 'No roles assigned' }}
+                        </p>
                     </div>
 
                     <div v-if="mustVerifyEmail && !user.email_verified_at">
