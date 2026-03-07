@@ -3,26 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assign Admin Role</title>
+    <title>Assign User Role</title>
 </head>
 <body>
-    <h1>Assign User to Admin</h1>
+    <h1>Assign Role to User</h1>
     
-    <form>
-        <label for="userId">User ID:</label>
-        <input type="number" id="userId" name="user_id" required>
+    <form id="assignForm">
+        <label for="userId">Select User:</label>
+        <select id="userId" name="user_id" required>
+            <option value="">-- Select User --</option>
+        </select>
         <br><br>
         
-        <label for="roleId">Role:</label>
+        <label for="roleId">Select Role:</label>
         <select id="roleId" name="role_id" required>
             <option value="">-- Select Role --</option>
-            <option value="1">Admin</option>
-            <option value="2">User</option>
-            <option value="3">Doctor</option>
         </select>
         <br><br>
         
         <button type="submit">Assign Role</button>
     </form>
+    
+    <hr>
+    
+
+    <script>
+        async function load_users() {
+            const response = await fetch('/api/users');
+            const users = await response.json();
+            
+            const user_select = document.getElementById('userId');
+            user_select.innerHTML = '<option value="">-- Select User --</option>';
+            
+            users.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.id;
+                option.textContent = `${user.name} (${user.email})`;
+                user_select.appendChild(option);
+            });
+            
+            const table_body = document.getElementById('userRolesList');
+            table_body.innerHTML = '';
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                const role_names = user.roles.map(role => role.name).join(', ') || 'No roles';
+                
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${role_names}</td>
+                `;
+                table_body.appendChild(row);
+            });
+        }
+
+        async function load_roles() {
+            const response = await fetch('/api/roles');
+            const roles = await response.json();
+            
+            const role_select = document.getElementById('roleId');
+            role_select.innerHTML = '<option value="">-- Select Role --</option>';
+            
+            roles.forEach(role => {
+                const option = document.createElement('option');
+                option.value = role.id;
+                option.textContent = role.name;
+                role_select.appendChild(option);
+            });
+        }
+
+        document.getElementById('assignForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const user_id = document.getElementById('userId').value;
+            const role_id = document.getElementById('roleId').value;
+            
+            const response = await fetch('/api/assign-role', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, role_id })
+            });
+            
+            const data = await response.json();
+            alert(data.message);
+            
+            if (data.success) {
+                load_users();
+            }
+        });
+
+        load_users();
+        load_roles();
+    </script>
 </body>
 </html>
