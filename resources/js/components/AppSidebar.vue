@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Settings, Shield } from 'lucide-vue-next';
+import { Folder, LayoutGrid, Settings, Shield } from 'lucide-vue-next';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -30,6 +30,11 @@ const mainNavItems = computed<NavItem[]>(() => {
         {
             title: 'Dashboard',
             href: dashboard(),
+            icon: LayoutGrid,
+        },
+        {
+            title: 'Items & Species',
+            href: '/items',
             icon: LayoutGrid,
         },
     ];
