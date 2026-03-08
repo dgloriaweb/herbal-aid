@@ -14,7 +14,7 @@ defineProps<Props>();
 
 <template>
     <svg
-        xmlns="../resources/images/herbal-aid-logo.png"
+        xmlns="http://www.w3.org/2000/svg"
         v-bind="$attrs"
     />
 </template>
