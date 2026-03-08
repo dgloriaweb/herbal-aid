@@ -48,3 +48,6 @@ docker exec herbal-aid-mysql-1 mysql -usail -ppassword herbal-aid -e "SELECT * F
 Current roles in the system:
 - Admin (ID: 1)
 - Guest (ID: 2)
+
+## create new migration
+sail artisan make:migration create_items_table

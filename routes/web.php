@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\UserRoleController;
+use App\Http\Controllers\ItemController;
 
 Route::inertia('/', 'Dashboard', [
     'canRegister' => Features::enabled(Features::registration()),
@@ -23,4 +24,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('/admin/menu-permissions', 'admin/MenuPermissions')->name('admin.menu-permissions');
 });
 
+// main contents
+Route::get('/api/items', [ItemController::class, 'index']);
 require __DIR__.'/settings.php';
