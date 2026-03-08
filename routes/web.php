@@ -26,4 +26,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // main contents
 Route::get('/api/items', [ItemController::class, 'index']);
+Route::inertia('/items', 'ItemsList')->name('items.index');
+
 require __DIR__.'/settings.php';

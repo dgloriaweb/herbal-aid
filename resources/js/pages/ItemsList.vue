@@ -35,6 +35,7 @@ onMounted(async () => {
                         <tr v-for="item in items" :key="item.id" class="border-b">
                             <td class="px-4 py-3">{{ item.id }}</td>
                             <td class="px-4 py-3">{{ item.scientific_name }}</td>
+                            <!--  will have to add some code to show all parents -->
                             <td class="px-4 py-3">{{ item.species?.name || '-' }}</td>
                         </tr>
                     </tbody>
